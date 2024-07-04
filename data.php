@@ -11,8 +11,6 @@ $ID_awal =  $ID_akhir - 6 ;
 
 $tanggal = mysqli_query($konek, "SELECT DATE_FORMAT(tanggal, '%H:%i:%s') AS waktu from sensor WHERE ID>='$ID_awal' and ID<='$ID_akhir' ORDER BY ID ASC");
 
-$supply_mq4 = mysqli_query($konek, "SELECT ppm_mq4 from sensor WHERE ID>='$ID_awal' and ID<='$ID_akhir' ORDER BY ID ASC");
-$supply_mq7 = mysqli_query($konek, "SELECT ppm_mq7 from sensor WHERE ID>='$ID_awal' and ID<='$ID_akhir' ORDER BY ID ASC");
 $supply_mq131 = mysqli_query($konek, "SELECT ppm_mq136 from sensor WHERE ID>='$ID_awal' and ID<='$ID_akhir' ORDER BY ID ASC");
 $supply_mq135 = mysqli_query($konek, "SELECT ppm_mq135 from sensor WHERE ID>='$ID_awal' and ID<='$ID_akhir' ORDER BY ID ASC");
 
@@ -31,37 +29,6 @@ $supply_mq135 = mysqli_query($konek, "SELECT ppm_mq135 from sensor WHERE ID>='$I
                 ?>
             ],
             datasets : [
-                {
-                    label : "mq4", 
-                    fill : true,
-                    backgroundColor : "rgba(52, 231, 43, 0.2)", // Warna hijau muda untuk mq4
-                    borderColor : "rgba(52, 231, 43, 1)", // Warna hijau untuk mq4
-                    lineTension : 0.5,
-                    pointRadius : 5,
-                    data : [
-                        <?php
-                            while($data_supply = mysqli_fetch_array($supply_mq4)) {
-                                echo $data_supply['ppm_mq4'].',' ;
-                            }
-                        ?>
-                    ]
-                },
-                {
-                    label : "mq7", 
-                    fill : true,
-                    backgroundColor: "rgba(255, 0, 0, 0.2)", // Warna merah muda untuk mq7
-                    borderColor: "rgba(255, 0, 0, 1)", // Warna merah untuk mq7
-                    lineTension : 0.5,
-                    pointRadius : 5,
-                    data : [
-                        <?php
-                            mysqli_data_seek($supply_mq7, 0); // Mengembalikan pointer ke awal $supply_mq7
-                            while($data_mq7 = mysqli_fetch_array($supply_mq7)) {
-                                echo $data_mq7['ppm_mq7'].',' ;
-                            }
-                        ?>
-                    ]
-                },
                 {
                     label : "mq131", 
                     fill : true,

@@ -20,12 +20,12 @@ if (isset($_POST['filter'])) {
     $dari_tgl = $_POST['dari_tgl'];
     $sampai_tgl = $_POST['sampai_tgl'];
 
-    $query = "SELECT ID, ppm_mq4, ppm_mq7, ppm_mq136, ppm_mq135, tinggiair, status, tanggal 
+    $query = "SELECT ID, ppm_mq136, ppm_mq135, tinggiair, status, tanggal 
               FROM sensor 
               WHERE tanggal BETWEEN '$dari_tgl' AND '$sampai_tgl'";
     $data_report = mysqli_query($konek, $query);
 } else {
-    $query = "SELECT ID, ppm_mq4, ppm_mq7, ppm_mq136, ppm_mq135, tinggiair, status, tanggal 
+    $query = "SELECT ID, ppm_mq136, ppm_mq135, tinggiair, status, tanggal 
               FROM sensor";
     $data_report = mysqli_query($konek, $query);
 }
@@ -193,8 +193,6 @@ if (isset($_POST['filter'])) {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>PPM_mq4</th>
-                                            <th>PPM_mq7</th>
                                             <th>PPM_mq136</th>
                                             <th>PPM_mq135</th>
                                             <th>Tinggi Air</th>
@@ -206,8 +204,6 @@ if (isset($_POST['filter'])) {
                                     <?php while ($row = mysqli_fetch_array($data_report)) { ?>
                                         <tr>
                                             <td><?php echo $row['ID']; ?></td>
-                                            <td><?php echo $row['ppm_mq4']; ?></td>
-                                            <td><?php echo $row['ppm_mq7']; ?></td>
                                             <td><?php echo $row['ppm_mq136']; ?></td>
                                             <td><?php echo $row['ppm_mq135']; ?></td>
                                             <td><?php echo $row['tinggiair']; ?></td>

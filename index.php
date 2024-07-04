@@ -58,13 +58,13 @@ $conn->close();
 <style type="text/css">
 
 .status-badge {
-    font-size: 1.8em;
+    font-size: 1.5em;
     padding: 10px 10px;
     border-radius: 5px;
     color: #fff;
     text-align: center;
     display: inline-block;
-    width: 200px; /* Sesuaikan lebar badge sesuai kebutuhan */
+    width: 150px; /* Sesuaikan lebar badge sesuai kebutuhan */
     margin-bottom: 10px; /* Atur margin jika diperlukan */
 }
 
@@ -210,8 +210,6 @@ $conn->close();
 <script type="text/javascript"> 
 $(document).ready(function(){
         setInterval(function(){
-            $("#dlText").load('ceksensor.php #ppm_mq4');
-            $("#ulText").load('ceksensor.php #ppm_mq7');
             $("#mqText").load('ceksensor.php #ppm_mq136');
             $("#wlText").load('ceksensor.php #ppm_mq135');
             $("#qlText").load('ceksensor.php #tinggiair');
@@ -236,15 +234,11 @@ $(document).ready(function(){
     
     function I(id){return document.getElementById(id);}
     var meterBk="#E0E0E0";
-    var dlColor="#DEB887",
-        ulColor="#B8860B",
-        mqColor="#778899",
+    var mqColor="#778899",
         wlColor="#FF8C00",
         qlColor="#7B68EE"
     var progColor="#EEEEEE";
     var parameters={ //custom test parameters. See doc.md for a complete list
-        time_dl: 10, //download test lasts 10 seconds
-        time_ul: 10, //upload test lasts 10 seconds
         time_mq: 10, //download test lasts 10 seconds
         time_wl: 10, //upload test lasts 10 seconds
         time_ql: 10, //download test lasts 10 seconds
@@ -288,26 +282,11 @@ $(document).ready(function(){
 
 function updateUI(forced) {
     // Ambil nilai dlText dari elemen #dlText
-    var dlTextValue = parseFloat($('#dlText').text());
-    var ulTextValue = parseFloat($('#ulText').text());
     var mqTextValue = parseFloat($('#mqText').text());
     var wlTextValue = parseFloat($('#wlText').text());
     var qlTextValue = parseFloat($('#qlText').text());
 
     // Tentukan warna meter berdasarkan nilai dlText
-    var dlMeterColor;
-    if (dlTextValue >= 0 && dlTextValue <= 500) {
-        dlMeterColor = dlColor;
-    } else {
-        dlMeterColor = progColor;
-    }
-
-    var ulMeterColor;
-    if (ulTextValue >= 0 && ulTextValue <= 500) {
-        ulMeterColor = ulColor;
-    }else {
-        ulMeterColor = progColor;
-    }
     var mqMeterColor;
     if (mqTextValue >= 0 && mqTextValue <= 500) {
         mqMeterColor = mqColor;
@@ -331,16 +310,12 @@ function updateUI(forced) {
     
 
     // Update teks dlText
-    $('#dlText').text(dlTextValue);
-    $('#ulText').text(ulTextValue); 
     $('#mqText').text(mqTextValue);
     $('#wlText').text(wlTextValue);
     $('#qlText').text(qlTextValue);
 
 
     // Menggambar meter dengan warna yang sesuai
-    drawMeter(I("dlMeter"), dlTextValue, 500, meterBk, dlMeterColor);
-    drawMeter(I("ulMeter"), ulTextValue, 500, meterBk, ulMeterColor);
     drawMeter(I("mqMeter"), mqTextValue, 500, meterBk, mqMeterColor);
     drawMeter(I("wlMeter"), wlTextValue, 500, meterBk, wlMeterColor);
     drawMeter(I("qlMeter"), qlTextValue, 500, meterBk, qlMeterColor);
@@ -470,7 +445,7 @@ function updateUI(forced) {
                     <!-- Content Row -->
                     <div class="row">
 
-                    <div class="col-xl-7 col-lg-5">
+                    <div class="col-xl-9 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -482,22 +457,6 @@ function updateUI(forced) {
                                 <!-- Card Body -->
                                 <div class="card-body ">
                                     <div class="testGroup">
-                                        <div class="testArea">
-                                            <div class="testName2">MQ4</div>
-                                            <canvas id="dlMeter" class="meter"></canvas>
-                                            <div id="dlText" class="meterText"></div>
-                                            <h4><div class="unit2">ppm</div></h4>
-                                            <h5><div class="nilai">0</div></h5>
-                                            <h5><div class= "nilai2">500</div><h5>
-                                        </div>
-                                        <div class="testArea">
-                                            <div class="testName2">MQ7</div>
-                                            <canvas id="ulMeter" class="meter"></canvas>
-                                            <div id="ulText" class="meterText"></div>
-                                            <h4><div class="unit2">ppm</div></h4>
-                                            <h5><div class="nilai">0</div></h5>
-                                            <h5><div class= "nilai2">500</div><h5>
-                                        </div>
                                         <div class="testArea">
                                             <div class="testName">MQ136</div>
                                             <canvas id="mqMeter" class="meter"></canvas>
@@ -526,7 +485,7 @@ function updateUI(forced) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-3 col-lg-5">
                         <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
